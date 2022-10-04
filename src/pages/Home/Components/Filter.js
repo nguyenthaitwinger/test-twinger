@@ -15,7 +15,10 @@ const listFilter = [
 
 const img1 = require('../../../assets/images/Filter.png');
 
-export default function Filter() {
+export default function Filter(props) {
+
+    const { setSort } = props;
+
     return (
         <div className={cx('filter-wrapper')}>
             <h3 className={cx('title')}>
@@ -36,13 +39,22 @@ export default function Filter() {
                         />
                     </div>
                 })}
+
+                {/* sort */}
                 <div className={cx('last-item')}>
                     <div className={cx('separation')}></div>
                     <div className={cx('filter-item')}>
-                        <select id='select' className={cx('filter-select')}>
-                            <option>
+                        <select
+                            defaultValue=''
+                            id='select'
+                            className={cx('filter-select')}
+                            onChange={(event) => { setSort(event.target.value) }}
+                        >
+                            <option value='' hidden>
                                 Sort by
                             </option>
+                            <option value='createdAt'>Mới nhất</option>
+                            <option value='title'>Tiêu đề</option>
                         </select>
                         <img
                             src={require('../../../assets/images/Filter.png')} alt="filter"

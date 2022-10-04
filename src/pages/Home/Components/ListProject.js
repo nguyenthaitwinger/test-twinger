@@ -2,72 +2,35 @@ import { Pagination } from 'antd';
 import classNames from 'classnames/bind';
 import React from 'react';
 import styles from '../home.module.scss';
+import moment from 'moment';
 
 const cx = classNames.bind(styles)
 const Bg1 = require('../../../assets/images/Project1.png');
 const Calender = require('../../../assets/images/Calendar.png');
 const Cup = require('../../../assets/images/Cup.png');
 const Share = require('../../../assets/images/Share.png');
+const title = 'Hộp đựng giấy lá chuối - Greenhopcom.com';
 
-const listProduct = [
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-    {
-        img: Bg1,
-        title: 'Hộp đựng giấy lá chuối - Greenhopcom.com',
-        tag: ['INTERNET', 'CODING', 'FOOD', 'TRAVELLING'],
-        desc: 'TripAdvisor for Food - Discover culinary secrets worldwide',
-        date: 'September 12, 2020'
-    },
-]
+export default function ListProject(props) {
 
 
-export default function ListProject() {
+    const { currentPage, setCurrentPage, listProject, total } = props;
+
+    const totalPages = Math.ceil(total / 6);
+
+
     return (
         <div className={cx('list-project-wrap')}>
             <div className={cx('title')}>
-                32,956 projects found
+                {total} projects found
             </div>
             <div className={cx('list-project')}>
                 <div className={`row g-0 ${cx('project-row')}`}>
-                    {listProduct.map((product, index) => {
+                    {listProject?.map((project, index) => {
                         return <div key={index} className={`col-md-6 col-lg-4 ${cx('project-col')}`}>
                             <div className={cx('project-item')}>
                                 <div
-                                    style={{ backgroundImage: `url('${product.img}')` }}
+                                    style={{ backgroundImage: `url('${project.thumbnail || Bg1}')` }}
                                     className={cx('project-bg')}
                                 >
                                     <div className={cx('img')}>
@@ -77,24 +40,26 @@ export default function ListProject() {
                                 </div>
                                 <div className={cx('project-content')}>
                                     <h3 className={cx('title')}>
-                                        {product.title}
+                                        {project.title || title}
                                     </h3>
                                     <div className={cx('list-tag')}>
-                                        {product.tag.map((itemTag, index) => {
+                                        {project.categories.map((itemTag, index) => {
                                             return <div key={index} className={cx('item')}>
-                                                {itemTag}
+                                                {itemTag.name}
                                             </div>
                                         })}
-
                                     </div>
                                     <div className={cx('desc')}>
-                                        {product.desc}
+                                        {
+                                            project.content
+                                        }
+
                                     </div>
                                 </div>
                                 <div className={cx('project-footer')}>
                                     <div className={cx('date')}>
                                         <img src={Calender} alt="calendar" />
-                                        <span>{product.date}</span>
+                                        <span>{moment(project.createdAt).format('YYYY-MM-DD')}</span>
                                     </div>
                                     <div className={cx('follow')}>
                                         <button>
@@ -108,7 +73,11 @@ export default function ListProject() {
                 </div>
             </div>
             <div className={cx('pagination')}>
-                <Pagination defaultCurrent={1} total={50} />
+                <Pagination
+                    defaultCurrent={currentPage}
+                    total={totalPages * 10}
+                    onChange={(page) => { setCurrentPage(page) }}
+                />
             </div>
         </div>
     )

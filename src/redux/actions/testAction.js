@@ -1,8 +1,14 @@
+import { getListProject } from "../../services/testServices";
 import testReducer from "../reducers/testReducer";
 
-export const addTest = (number) => {
-    return (dispatch, getState) => {
-        const newData = Number(number) + 1;
-        dispatch(testReducer.actions.addNumber(newData))
+export const getListProjectAction = (page, search, sort) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await getListProject(page, search, sort);
+            dispatch(testReducer.actions.getListProject(result.data))
+        } catch (err) {
+
+        }
+        // dispatch(testReducer.actions.addNumber(newData))
     }
 }

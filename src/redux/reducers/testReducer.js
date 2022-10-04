@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const testReducer = createSlice({
     name: 'test',
     initialState: {
-        test: [1, 2, 3]
+        listProject: []
     },
     reducers: {
-        addNumber: (state, action) => {
-            state.test.push(action.payload)
+        getListProject: (state, action) => {
+            state.listProject = action.payload;
         }
     }
 })
