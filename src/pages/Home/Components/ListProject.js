@@ -16,6 +16,8 @@ export default function ListProject(props) {
 
     const { currentPage, setCurrentPage, listProject, total } = props;
 
+    console.log(listProject);
+
     const totalPages = Math.ceil(total / 6);
 
 
@@ -51,7 +53,7 @@ export default function ListProject(props) {
                                     </div>
                                     <div className={cx('desc')}>
                                         {
-                                            project.content
+                                            project.summary
                                         }
 
                                     </div>
