@@ -21,7 +21,7 @@ export default function Home() {
 
     const [filter, setFilter] = useState({});
 
-    const data = useSelector(state => state.testReducer.listProject);
+    // const data = useSelector(state => state.testReducer.listProject);
 
     //React Query
     // const { isLoading, error, data } = useQuery([{ page, s, orderBy, ...filter }], getListProject);
