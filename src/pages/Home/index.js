@@ -14,15 +14,12 @@ export default function Home() {
 
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
-    const [sort, setSort] = useState('createdAt');
+    const [orderBy, setOrderBy] = useState('createdAt');
 
-    const [filter, setFilter] = useState({
-
-    });
+    const [filter, setFilter] = useState({});
 
     //React Query
-    const { isLoading, error, data } = useQuery([{ page, search, sort, ...filter }], getListProject);
-
+    const { isLoading, error, data } = useQuery([{ page, search, orderBy, ...filter }], getListProject);
 
 
     return (
@@ -33,7 +30,7 @@ export default function Home() {
                 setSearch={setSearch}
             />
             <Filter
-                setSort={setSort}
+                setSort={setOrderBy}
                 setFilter={setFilter}
                 filters={filter}
             />

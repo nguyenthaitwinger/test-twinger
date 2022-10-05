@@ -66,7 +66,7 @@ export default function Filter(props) {
                                 Sort by
                             </option>
                             <option value='createdAt'>Mới nhất</option>
-                            <option value='title'>Tiêu đề</option>
+                            <option value='fullName'>Tiêu đề</option>
                             <option value='followers'>Phổ biến</option>
                         </select>
                         <img

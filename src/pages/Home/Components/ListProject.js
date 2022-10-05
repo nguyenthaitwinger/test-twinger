@@ -66,7 +66,7 @@ export default function ListProject(props) {
                                 <div className={cx('project-footer')}>
                                     <div className={cx('date')}>
                                         <img src={Calender} alt="calendar" />
-                                        <span>{moment(project.createdAt).format('YYYY/MM/DD')}</span>
+                                        <span>{moment(project.createdAt).format('DD/MM/YYYY')}</span>
                                     </div>
                                     <div className={cx('follow')}>
                                         <button>
