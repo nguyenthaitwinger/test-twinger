@@ -1,4 +1,4 @@
-interface categoryItem {
+export interface categoryItem {
   name: string;
   _id: string;
 }

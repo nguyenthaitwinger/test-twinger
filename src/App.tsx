@@ -1,8 +1,11 @@
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import store from "./redux/store";
 import { route } from "./routes";
-import React from "react";
 
 const App: React.FC = () => {
+  useEffect(() => {});
+
   return (
     <BrowserRouter>
       <Routes>

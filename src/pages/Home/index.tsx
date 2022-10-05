@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hook/connectHook";
 import { getListProjectCreator } from "../../redux/actions/testAction";
 import Filter from "./Components/Filter";
 import ListProject from "./Components/ListProject";
@@ -11,16 +11,16 @@ import styles from "./home.module.scss";
 const cx = classNames.bind(styles);
 
 export default function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const [s, setS] = useState("");
   const [orderBy, setOrderBy] = useState("createdAt");
 
   const [filter, setFilter] = useState({});
 
-  const data = useSelector((state: any) => state.testReducer.listProject);
-
-  console.log(data);
+  const data = useAppSelector((state: any) => {
+    return state.testReducer.listProject;
+  });
 
   //React Query
   // const { isLoading, error, data } = useQuery([{ page, s, orderBy, ...filter }], getListProject);
