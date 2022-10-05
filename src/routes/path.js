@@ -1,1 +1,1 @@
-export const LIST_PRODUCT = 'list-product';
+export const LIST_PRODUCT = '';

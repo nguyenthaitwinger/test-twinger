@@ -16,7 +16,6 @@ export default function ListProject(props) {
 
     const { currentPage, setCurrentPage, listProject, total } = props;
 
-    console.log(listProject);
 
     const totalPages = Math.ceil(total / 6);
 

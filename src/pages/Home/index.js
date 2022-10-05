@@ -1,28 +1,38 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames/bind'
-import styles from './home.module.scss'
-import Search from './Components/Search'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getListProject } from '../../services/testServices'
 import Filter from './Components/Filter'
-import Tags from './Components/Tags'
 import ListProject from './Components/ListProject'
-import { getListProjectAction } from '../../redux/actions/testAction'
+import Search from './Components/Search'
+import Tags from './Components/Tags'
+import styles from './home.module.scss'
 
 const cx = classNames.bind(styles)
 
 export default function Home() {
 
-    const dispatch = useDispatch();
-
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('createdAt');
 
-    const { listProject } = useSelector(state => state.testReducer);
+    // const { listProject } = useSelector(state => state.testReducer);
 
-    useEffect(() => {
-        dispatch(getListProjectAction(currentPage, search, sort));
-    }, [currentPage, search, sort, dispatch]);
+    // useEffect(() => {
+    //     dispatch(getListProjectAction(currentPage, search, sort));
+    // }, [currentPage, search, sort, dispatch]);
+
+
+
+    //React Query
+    const { isLoading, error, data } = useQuery([currentPage, search, sort], getListProject)
+
+
+
+    if (isLoading) return 'Loading...'
+    if (error) return 'An error has occurred: ' + error.message
+
 
     return (
         <div className={cx('home-wrapper')}>
@@ -40,8 +50,8 @@ export default function Home() {
                 <ListProject
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
-                    listProject={listProject?.data}
-                    total={listProject?.total}
+                    listProject={data?.data}
+                    total={data?.total}
                 />
             </div>
         </div>
