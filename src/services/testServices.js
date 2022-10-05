@@ -18,3 +18,16 @@ export const getListProject = async ({ queryKey }) => {
 
     return result.data;
 }
+
+export const getListProjectSaga = (param) => {
+
+
+    const params = {
+        ...param,
+        perPage: 6
+    }
+
+    console.log(params, param)
+
+    return axios.get(`${DOMAIN}/v1/investment/list`, { params })
+}

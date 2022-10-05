@@ -14,14 +14,13 @@ const title = 'Hộp đựng giấy lá chuối - Greenhopcom.com';
 export default function ListProject(props) {
 
 
-    const { page, setPage, listProject, total, isLoading, error } = props;
+    const { page, setPage, listProject, total } = props;
 
 
     const totalPages = Math.ceil(total / 6);
 
 
-    if (isLoading) return 'Loading...'
-    if (error) return 'An error has occurred: ' + error.message
+
 
     return (
         <div className={cx('list-project-wrap')}>
