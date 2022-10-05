@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames/bind'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { getListProject } from '../../services/testServices'
 import Filter from './Components/Filter'
 import ListProject from './Components/ListProject'
@@ -13,25 +12,17 @@ const cx = classNames.bind(styles)
 
 export default function Home() {
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('createdAt');
 
-    // const { listProject } = useSelector(state => state.testReducer);
+    const [filter, setFilter] = useState({
 
-    // useEffect(() => {
-    //     dispatch(getListProjectAction(currentPage, search, sort));
-    // }, [currentPage, search, sort, dispatch]);
-
-
+    });
 
     //React Query
-    const { isLoading, error, data } = useQuery([currentPage, search, sort], getListProject)
+    const { isLoading, error, data } = useQuery([{ page, search, sort, ...filter }], getListProject);
 
-
-
-    if (isLoading) return 'Loading...'
-    if (error) return 'An error has occurred: ' + error.message
 
 
     return (
@@ -43,15 +34,22 @@ export default function Home() {
             />
             <Filter
                 setSort={setSort}
+                setFilter={setFilter}
+                filters={filter}
             />
 
             <div className={cx('content')}>
-                <Tags />
+                <Tags
+                    filter={filter}
+                    setFilter={setFilter}
+                />
                 <ListProject
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
+                    page={page}
+                    setPage={setPage}
                     listProject={data?.data}
                     total={data?.total}
+                    isLoading={isLoading}
+                    error={error}
                 />
             </div>
         </div>

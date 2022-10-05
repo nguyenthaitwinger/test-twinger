@@ -5,22 +5,35 @@ import styles from '../home.module.scss'
 
 const cx = classNames.bind(styles)
 
+export default function Tags(props) {
 
-const listTags = [
-    { content: 'INTERNET' },
-    { content: 'CODING' },
-    { content: 'FOOD' },
-    { content: 'FOOD' },
-]
+    const { filter, setFilter } = props;
+    const listTag = [];
+    for (let index in filter) {
+        listTag.push({
+            key: index,
+            value: filter[index]
+        });
+    }
 
-export default function Tags() {
+    const handleRemoveTag = (tag) => {
+        setFilter(preState => {
+            delete preState[tag]
+            return { ...preState }
+        })
+    }
+
+
     return (
         <div className={cx('list-tags')}>
-            {listTags.map((tag, index) => {
-                return <div key={index} className={cx('tag-item')}>
-                    <span>{tag.content}</span>
-                    <CloseIcons />
-                </div>
+            {listTag.map((tag, index) => {
+                if (tag.value !== '')
+                    return <div key={index} className={cx('tag-item')}>
+                        <span>{tag.value}</span>
+                        <div onClick={() => { handleRemoveTag(tag.key) }}>
+                            <CloseIcons />
+                        </div>
+                    </div>
             })}
 
         </div>

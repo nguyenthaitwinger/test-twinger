@@ -5,19 +5,20 @@ const cx = classNames.bind(styles);
 
 
 const listFilter = [
-    { name: 'Categories' },
-    { name: 'Technology' },
-    { name: 'Location' },
-    { name: 'Badge' },
-    { name: 'Stage' },
-    { name: 'Looking for fund raising' },
+    {
+        name: 'category',
+        option: ['3D Technology', '3D Printing', 'Ad Exchange', 'A/B Testingss']
+    },
+    { name: 'technologies', option: ['Agricultural robotics', 'Advanced materialss', 'Agriculture machines', 'Airless tires'] },
+    { name: 'location', option: ['Afghanistan', 'Albania', 'Vietnam'] },
+    { name: 'badge', option: ['Lab2Market', 'Marketing Competition'] },
 ]
 
 const img1 = require('../../../assets/images/Filter.png');
 
 export default function Filter(props) {
 
-    const { setSort } = props;
+    const { setSort, setFilter, filters } = props;
 
     return (
         <div className={cx('filter-wrapper')}>
@@ -27,10 +28,21 @@ export default function Filter(props) {
             <div className={cx('list-filter')}>
                 {listFilter.map((filter, index) => {
                     return <div key={index} className={cx('filter-item')}>
-                        <select className={cx('filter-select')}>
-                            <option>
+                        <select
+                            defaultValue=''
+                            value={filters[filter.name] || ''}
+                            name={filter.name}
+                            className={cx('filter-select')}
+                            onChange={
+                                (event) => { setFilter(prestate => { return { ...prestate, [event.target.name]: event.target.value } }) }
+                            }
+                        >
+                            <option value='' hidden>
                                 {filter.name}
                             </option>
+                            {filter?.option.map((item, index) => {
+                                return <option key={index} value={item}>{item}</option>
+                            })}
                         </select>
                         <img
                             src={img1} alt="filter"
@@ -55,6 +67,7 @@ export default function Filter(props) {
                             </option>
                             <option value='createdAt'>Mới nhất</option>
                             <option value='title'>Tiêu đề</option>
+                            <option value='followers'>Phổ biến</option>
                         </select>
                         <img
                             src={require('../../../assets/images/Filter.png')} alt="filter"

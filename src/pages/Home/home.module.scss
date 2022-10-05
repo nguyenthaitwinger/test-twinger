@@ -60,6 +60,7 @@
   .title {
     margin-bottom: 0;
     margin-right: 8px;
+    margin-top: 8px;
   }
 }
 
@@ -149,6 +150,8 @@
   svg {
     margin-right: 8px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
   }
 }
 

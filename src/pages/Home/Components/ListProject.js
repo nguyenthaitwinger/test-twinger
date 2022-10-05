@@ -14,11 +14,14 @@ const title = 'Hộp đựng giấy lá chuối - Greenhopcom.com';
 export default function ListProject(props) {
 
 
-    const { currentPage, setCurrentPage, listProject, total } = props;
+    const { page, setPage, listProject, total, isLoading, error } = props;
 
 
     const totalPages = Math.ceil(total / 6);
 
+
+    if (isLoading) return 'Loading...'
+    if (error) return 'An error has occurred: ' + error.message
 
     return (
         <div className={cx('list-project-wrap')}>
@@ -31,7 +34,7 @@ export default function ListProject(props) {
                         return <div key={index} className={`col-md-6 col-lg-4 ${cx('project-col')}`}>
                             <div className={cx('project-item')}>
                                 <div
-                                    style={{ backgroundImage: `url('${project.thumbnail || Bg1}')` }}
+                                    style={{ backgroundImage: `url('${project.logo || Bg1}')` }}
                                     className={cx('project-bg')}
                                 >
                                     <div className={cx('img')}>
@@ -41,18 +44,21 @@ export default function ListProject(props) {
                                 </div>
                                 <div className={cx('project-content')}>
                                     <h3 className={cx('title')}>
-                                        {project.title || title}
+                                        {project.fullName || title}
                                     </h3>
                                     <div className={cx('list-tag')}>
-                                        {project.categories.map((itemTag, index) => {
+                                        {project.coSecondaryCategories.map((itemTag, index) => {
                                             return <div key={index} className={cx('item')}>
                                                 {itemTag.name}
                                             </div>
                                         })}
+                                        <div key={index} className={cx('item')}>
+                                            {project.coPrimaryCategory.name}
+                                        </div>
                                     </div>
                                     <div className={cx('desc')}>
                                         {
-                                            project.summary
+                                            project.tagline
                                         }
 
                                     </div>
@@ -60,7 +66,7 @@ export default function ListProject(props) {
                                 <div className={cx('project-footer')}>
                                     <div className={cx('date')}>
                                         <img src={Calender} alt="calendar" />
-                                        <span>{moment(project.createdAt).format('YYYY-MM-DD')}</span>
+                                        <span>{moment(project.createdAt).format('YYYY/MM/DD')}</span>
                                     </div>
                                     <div className={cx('follow')}>
                                         <button>
@@ -75,9 +81,9 @@ export default function ListProject(props) {
             </div>
             <div className={cx('pagination')}>
                 <Pagination
-                    defaultCurrent={currentPage}
+                    defaultCurrent={page}
                     total={totalPages * 10}
-                    onChange={(page) => { setCurrentPage(page) }}
+                    onChange={(page) => { setPage(page) }}
                 />
             </div>
         </div>

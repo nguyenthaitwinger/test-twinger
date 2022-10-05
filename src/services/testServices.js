@@ -2,10 +2,15 @@ import axios from 'axios'
 import { DOMAIN } from '../config/base'
 
 export const getListProject = async ({ queryKey }) => {
-    const result = await axios({
-        url: `${DOMAIN}/v1/news/search?page=${queryKey[0]}&s=${queryKey[1]}&perPage=6&orderBy=${queryKey[2]}&order=DESC`,
-        method: 'GET'
-    })
+
+    const params = {
+        ...queryKey[0],
+        perPage: 6,
+        dealSizeMin: 0,
+        dealSizeMax: 0
+    };
+
+    const result = await axios.get(`${DOMAIN}/v1/investment/list`, { params })
 
     return result.data;
 }
