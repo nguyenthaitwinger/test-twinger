@@ -18,7 +18,7 @@ export default function Home() {
 
   const [filter, setFilter] = useState({});
 
-  const data = useAppSelector((state: any) => {
+  const data = useAppSelector((state) => {
     return state.testReducer.listProject;
   });
 

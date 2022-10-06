@@ -1,8 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dataResponse, ProjectItem } from "../../Common/common";
+import { dataResponse } from "../../Common/common";
 
 const initialState = {
-  listProject: {},
+  listProject: {
+    data: new Array<any>(),
+    message: "",
+    page: "",
+    perPage: "",
+    statusCode: 0,
+    total: 0,
+  },
 };
 
 const testReducer = createSlice({

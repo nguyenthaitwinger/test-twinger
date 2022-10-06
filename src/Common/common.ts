@@ -1,10 +1,16 @@
+export interface valueState {
+  data: any[];
+  message: string;
+  page: string;
+  perPage: string;
+  statusCode: number;
+  total: number;
+}
+
 export interface categoryItem {
   name: string;
   _id: string;
 }
-
-interface badgeItem {}
-
 export interface ProjectItem {
   logo: string;
   fullName: string;
